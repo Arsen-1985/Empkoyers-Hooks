@@ -1,62 +1,78 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
 import AppFilter from '../app-filter/app-filter';
 import EmployersList from '../employers-list/employers-list';
 import EmployersAddForm from '../employers-add-form/employers-add-form';
-
 import './app.css';
 
 const App = () => {
+    const saveData = (data) => {
+        localStorage.setItem('localStorage', JSON.stringify(data));
+    };
+
+    useEffect(() => {
+        if (localStorage.getItem('localStorage')) {
+            setData(JSON.parse(localStorage.getItem('localStorage')));
+        }
+    }, []);
+
+    const generateId = () => {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
+
     const [data, setData] = useState([
         {
             name: 'Arsen Muradyan',
             salary: 800,
             increase: false,
             rise: true,
-            id: 0,
+            id: generateId(),
         },
         {
             name: 'Gohar Taroyan',
             salary: 2000,
             increase: true,
             rise: false,
-            id: 1,
+            id: generateId(),
         },
         {
             name: 'Ashot Muradyan',
             salary: 700,
             increase: false,
             rise: false,
-            id: 2,
+            id: generateId(),
         },
         {
             name: 'Izabella Muradyan',
             salary: 4000,
             increase: false,
             rise: false,
-            id: 3,
+            id: generateId(),
         },
     ]);
+
     const [term, setTerm] = useState('');
     const [filter, setFilter] = useState('all');
 
     const deleteItem = (id) => {
         setData(data.filter((item) => item.id !== id));
+        saveData(data.filter((item) => item.id !== id));
     };
+
     const addItem = (name, salary) => {
         const newItem = {
             name,
             salary,
             increase: false,
             rise: false,
-            id: data.length,
+            id: generateId(),
         };
+        saveData([...data, newItem]);
+
         setData((data) => {
             return [...data, newItem];
         });
-        console.log(newItem.id);
     };
 
     const onToggleProp = (id, prop) => {
@@ -80,7 +96,7 @@ const App = () => {
     };
 
     const onUpdateSearch = (term) => {
-        setTerm(term); // 2
+        setTerm(term);
     };
 
     const filterPost = (items, filter) => {
@@ -94,7 +110,7 @@ const App = () => {
         }
     };
     const onFilterSelect = (filter) => {
-        setFilter(filter); // 3
+        setFilter(filter);
     };
     const employers = data.length;
 
