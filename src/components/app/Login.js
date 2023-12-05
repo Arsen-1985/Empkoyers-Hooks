@@ -1,15 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const [emailDirty, setEmailDirty] = useState(false);
+    const [passwordDirty, setPasswordDirty] = useState(false);
+    const [emailError, setEmailError] = useState('Email cannot be empty');
+    const [passwordError, setPasswordError] = useState(
+        'Password cannot be empty',
+    );
+    const [formValid, setFormValid] = useState(false);
 
     const saveLoginInfo = () => {
         const timestamp = Date.now();
         const info = { email, password, timestamp };
         localStorage.setItem('loginInfo', JSON.stringify(info));
     };
+
+    useEffect(() => {
+        if (emailError || passwordError) {
+            setFormValid(false);
+        } else {
+            setFormValid(true);
+        }
+    }, [emailError, passwordError]);
 
     useEffect(() => {
         const storedInfo = localStorage.getItem('loginInfo');
@@ -49,37 +65,71 @@ const Login = ({ onLogin }) => {
         setPassword('');
     };
 
-    return (
-        <div>
-            <form onSubmit={submitForm}>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        className="form-control"
-                        type="text"
-                        name="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input
-                        className="form-control"
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button className="btn btn-primary" type="submit">
-                    Submit
-                </button>
+    const emailHandler = (e) => {
+        setEmail(e.target.value);
+        const re = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        if (!re.test(String(e.target.value).toLocaleLowerCase())) {
+            setEmailError('Incorrect email');
+        } else {
+            setEmailError('');
+        }
+    };
 
+    const blurHandler = (e) => {
+        switch (e.target.name) {
+            case 'email':
+                setEmailDirty(true);
+                break;
+            case 'password':
+                setPasswordDirty(true);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const passwordHandler = (e) => {
+        setPassword(e.target.value);
+        if (e.target.value.length < 6 || e.target.value.length > 6) {
+            setPasswordError('Password is incorrect');
+            if (!e.target.value) {
+                setPasswordError(
+                    'The password must be at least 5 and no more than  characters',
+                );
+            }
+        } else {
+            setPasswordError('');
+        }
+    };
+
+    return (
+        <div className="App">
+            <form onSubmit={submitForm}>
+                <h1>Login vith email and password</h1>
+                {emailDirty && emailError && (
+                    <div style={{ color: 'red' }}>{emailError}</div>
+                )}
+                <input
+                    onChange={(e) => emailHandler(e)}
+                    value={email}
+                    onBlur={(e) => blurHandler(e)}
+                    name="email"
+                    type="text"
+                    placeholder="Enter your email"
+                />
+                {passwordDirty && passwordError && (
+                    <div style={{ color: 'red' }}>{passwordError}</div>
+                )}
+                <input
+                    onChange={(e) => passwordHandler(e)}
+                    value={password}
+                    onBlur={(e) => blurHandler(e)}
+                    name="password"
+                    type="password"
+                    placeholder="Enter your password"
+                />
                 <label className="container">
-                    Remember Me
+                    Remember me
                     <input
                         type="checkbox"
                         checked={rememberMe}
@@ -87,9 +137,17 @@ const Login = ({ onLogin }) => {
                     />
                     <span className="checkmark"></span>
                 </label>
+                <button disabled={!formValid} type="submit">
+                    SUBMIT
+                </button>
             </form>
         </div>
     );
+};
+
+Login.propTypes = {
+    email: PropTypes.string,
+    password: PropTypes.string,
 };
 
 export default Login;

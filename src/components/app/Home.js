@@ -13,7 +13,7 @@ const Home = () => {
 
     if (email === '' && password === '') {
         return <Login onLogin={handleLogin} />;
-    } else if (email === '000' && password === '111') {
+    } else if (email === 'ars@gmail.com' && password === '111111') {
         return <App />;
     } else {
         return 'ERROR';
