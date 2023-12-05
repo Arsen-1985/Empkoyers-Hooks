@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid'; // Импортируем функцию v4 из библиотеки uuid
 import AppInfo from '../appInfo/AppInfo';
 import SearchPanel from '../searchPanel/SearchPanel';
 import AppFilter from '../appFilter/AppFilter';
@@ -17,8 +18,9 @@ const App = () => {
         }
     }, []);
 
+    // Используем uuidv4 для генерации уникальных идентификаторов
     const generateId = () => {
-        return '_' + Math.random().toString(36).substr(2, 9);
+        return uuidv4();
     };
 
     const [data, setData] = useState([
