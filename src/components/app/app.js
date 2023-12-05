@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import AppInfo from '../app-info/app-info';
-import SearchPanel from '../search-panel/search-panel';
-import AppFilter from '../app-filter/app-filter';
-import EmployersList from '../employers-list/employers-list';
-import EmployersAddForm from '../employers-add-form/employers-add-form';
+import AppInfo from '../appInfo/AppInfo';
+import SearchPanel from '../searchPanel/SearchPanel';
+import AppFilter from '../appFilter/AppFilter';
+import EmployersList from '../employersList/EmployersList';
+import EmployersAddForm from '../employersAddForm/EmployersAddForm';
 import './app.css';
 
 const App = () => {
@@ -121,7 +121,7 @@ const App = () => {
         <div className="app">
             <AppInfo employers={employers} increased={increased} />
 
-            <div className="search-panel">
+            <div className="searchPanel">
                 <SearchPanel onUpdateSearch={onUpdateSearch} />
                 <AppFilter filter={filter} onFilterSelect={onFilterSelect} />
             </div>

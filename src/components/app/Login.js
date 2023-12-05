@@ -58,7 +58,10 @@ const Login = ({ onLogin }) => {
         if (rememberMe) {
             saveLoginInfo();
         } else {
-            localStorage.removeItem('loginInfo');
+            const storedInfo = localStorage.getItem('loginInfo');
+            if (storedInfo) {
+                localStorage.removeItem('loginInfo');
+            }
         }
 
         setEmail('');

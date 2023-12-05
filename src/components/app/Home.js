@@ -16,7 +16,8 @@ const Home = () => {
     } else if (email === 'ars@gmail.com' && password === '111111') {
         return <App />;
     } else {
-        return 'ERROR';
+        localStorage.removeItem('loginInfo');
+        return 'Error';
     }
 };
 
