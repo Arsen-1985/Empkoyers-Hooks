@@ -1,3 +1,4 @@
+import React from 'react';
 import EmployersListItem from '../employersListItem/EmployersListItem';
 import './employersList.css';
 
@@ -19,7 +20,11 @@ const EmployersList = ({ data, onDelete, onToggleProp }) => {
         );
     });
 
-    return <ul className="appList list-group">{elements}</ul>;
+    return (
+        <table className="appList table">
+            <tbody>{elements}</tbody>
+        </table>
+    );
 };
 
 export default EmployersList;

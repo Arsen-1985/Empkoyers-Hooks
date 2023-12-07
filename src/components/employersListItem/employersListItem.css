@@ -1,27 +1,40 @@
-.list-group-item {
-    padding: 15px 20px;
-    border-bottom: 1px solid #3d5a80;
+.d-flex {
+    display: flex;
 }
 
-.list-group-item:last-child {
-    border-bottom: none;
+.justify-content-between {
+    justify-content: flex-end;
 }
 
-.list-group-item span {
+.increase {
+    color: #e09f3e;
+}
+
+.like {
+    color: #ffd700;
+}
+
+.list-group-item-label {
     line-height: 35px;
     font-size: 20px;
     cursor: pointer;
-    min-width: 550px;
 }
 
-.list-group-item input {
+.list-group-item-input {
     line-height: 35px;
     font-size: 20px;
     text-align: center;
     border: 0;
 }
 
-.list-group-item button {
+tr {
+    border-bottom: 2px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.btn-cookie,
+.btn-trash {
     width: 35px;
     height: 35px;
     margin: 3px;
@@ -30,15 +43,15 @@
     cursor: pointer;
 }
 
-.list-group-item .btn-cookie {
+.btn-cookie {
     color: #e09f3e;
 }
 
-.list-group-item .btn-trash {
+.btn-trash {
     color: #e5383b;
 }
 
-.list-group-item .fa-star {
+.fa-star {
     width: 35px;
     height: 35px;
     text-align: center;
@@ -46,20 +59,19 @@
     font-size: 16px;
     color: #ffd700;
     transition: 0.3s all;
-    transform: translateX(30px);
     opacity: 0;
 }
 
-.list-group-item.like .fa-star {
+.like .fa-star {
     opacity: 1;
     transform: translateX(0px);
 }
 
-.list-group-item.increase .list-group-item-label,
-.list-group-item.increase .list-group-item-input {
+.increase .list-group-item-label,
+.increase .list-group-item-input {
     color: #e09f3e;
 }
 
-.list-group-item.increase .btn-star {
+.increase .btn-star {
     color: #aeaeae;
 }

@@ -18,9 +18,15 @@ h5 {
 input {
     margin: 10px 0 10px;
 }
-/*
-.app {
-    margin: 0 auto;
-    max-width: 100%;
+
+@media screen and (min-width: 800px) {
+    .App {
+        background-color: gray;
+    }
 }
-*/
+
+@media screen and (max-width: 800px) {
+    .App {
+        background-color: greenyellow;
+    }
+}
