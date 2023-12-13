@@ -14,7 +14,7 @@ const SearchPanel = (props) => {
         <input
             type="text"
             className="form-control search-input"
-            placeholder="Найти сотрудника"
+            placeholder="Find an employee"
             value={term}
             onChange={onUpdateSearch}
         />

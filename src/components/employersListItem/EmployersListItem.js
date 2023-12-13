@@ -21,6 +21,7 @@ const EmployersListItem = (props) => {
             >
                 {name}
             </td>
+
             <td>
                 <input
                     type="text"
@@ -28,7 +29,8 @@ const EmployersListItem = (props) => {
                     defaultValue={salary + '$'}
                 />
             </td>
-            <td className="d-flex align-items-center">
+
+            <td className="d-flex ">
                 <button
                     type="button"
                     className="btn-cookie btn-sm "

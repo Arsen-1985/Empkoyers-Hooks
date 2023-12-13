@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './Login.css';
 
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
@@ -17,6 +18,13 @@ const Login = ({ onLogin }) => {
         const timestamp = Date.now();
         const info = { email, password, timestamp };
         localStorage.setItem('loginInfo', JSON.stringify(info));
+    };
+
+    const loginValidationErrors = {
+        emptyEmail: 'Incorrect email',
+        emptyPassword: 'Password is incorrect',
+        emptyPassword1:
+            'The password must be at least 5 and no more than  characters',
     };
 
     useEffect(() => {
@@ -72,7 +80,7 @@ const Login = ({ onLogin }) => {
         setEmail(e.target.value);
         const re = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         if (!re.test(String(e.target.value).toLocaleLowerCase())) {
-            setEmailError('Incorrect email');
+            setEmailError(loginValidationErrors.emptyEmail);
         } else {
             setEmailError('');
         }
@@ -94,11 +102,9 @@ const Login = ({ onLogin }) => {
     const passwordHandler = (e) => {
         setPassword(e.target.value);
         if (e.target.value.length < 6 || e.target.value.length > 6) {
-            setPasswordError('Password is incorrect');
+            setPasswordError(loginValidationErrors.emptyPassword);
             if (!e.target.value) {
-                setPasswordError(
-                    'The password must be at least 5 and no more than  characters',
-                );
+                setPasswordError(loginValidationErrors.emptyPassword1);
             }
         } else {
             setPasswordError('');
@@ -108,41 +114,51 @@ const Login = ({ onLogin }) => {
     return (
         <div className="App">
             <form onSubmit={submitForm}>
-                <h1>Login vith email and password</h1>
-                {emailDirty && emailError && (
-                    <div style={{ color: 'red' }}>{emailError}</div>
-                )}
-                <input
-                    onChange={(e) => emailHandler(e)}
-                    value={email}
-                    onBlur={(e) => blurHandler(e)}
-                    name="email"
-                    type="text"
-                    placeholder="Enter your email"
-                />
-                {passwordDirty && passwordError && (
-                    <div style={{ color: 'red' }}>{passwordError}</div>
-                )}
-                <input
-                    onChange={(e) => passwordHandler(e)}
-                    value={password}
-                    onBlur={(e) => blurHandler(e)}
-                    name="password"
-                    type="password"
-                    placeholder="Enter your password"
-                />
-                <label className="container">
-                    Remember me
+                <h1>Login with email and password</h1>
+                <div className="lineBreak">
                     <input
-                        type="checkbox"
-                        checked={rememberMe}
-                        onChange={() => setRememberMe(!rememberMe)}
+                        onChange={(e) => emailHandler(e)}
+                        value={email}
+                        onBlur={(e) => blurHandler(e)}
+                        name="email"
+                        type="text"
+                        placeholder="Enter your email"
                     />
-                    <span className="checkmark"></span>
-                </label>
-                <button disabled={!formValid} type="submit">
-                    SUBMIT
-                </button>
+
+                    {emailDirty && emailError && (
+                        <div className="lineBreack2">{emailError}</div>
+                    )}
+                </div>
+
+                <div className="lineBreak">
+                    <input
+                        onChange={(e) => passwordHandler(e)}
+                        value={password}
+                        onBlur={(e) => blurHandler(e)}
+                        name="password"
+                        type="password"
+                        placeholder="Enter your password"
+                    />
+                    {passwordDirty && passwordError && (
+                        <div className="lineBreack2">{passwordError}</div>
+                    )}
+                </div>
+                <div>
+                    <label className="container">
+                        Remember me
+                        <input
+                            type="checkbox"
+                            checked={rememberMe}
+                            onChange={() => setRememberMe(!rememberMe)}
+                        />
+                        <span className="checkmark"></span>
+                    </label>
+                </div>
+                <div>
+                    <button disabled={!formValid} type="submit">
+                        SUBMIT
+                    </button>
+                </div>
             </form>
         </div>
     );

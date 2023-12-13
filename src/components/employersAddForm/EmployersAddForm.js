@@ -22,12 +22,12 @@ const EmployersAddForm = (props) => {
     };
     return (
         <div className="appAddForm">
-            <h3>Добавьте нового сотрудника</h3>
+            <h3>Add a new employee</h3>
             <form className="addForm d-flex" onSubmit={onSubmit}>
                 <input
                     type="text"
                     className="form-control new-post-label"
-                    placeholder="Как его зовут?"
+                    placeholder="What's his name?"
                     name="name"
                     value={name}
                     onChange={onValueChange}
@@ -35,14 +35,14 @@ const EmployersAddForm = (props) => {
                 <input
                     type="number"
                     className="form-control new-post-label"
-                    placeholder="Зарплата в $?"
+                    placeholder="Salary in $?"
                     name="salary"
                     value={salary}
                     onChange={onSalaryChange}
                 />
 
                 <button type="submit" className="btn btn-outline-light">
-                    Добавить
+                    Add
                 </button>
             </form>
         </div>

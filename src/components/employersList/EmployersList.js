@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EmployersListItem from '../employersListItem/EmployersListItem';
 import './employersList.css';
 
 const EmployersList = ({ data, onDelete, onToggleProp }) => {
+    const [confirmDelete, setConfirmDelete] = useState(null);
+
+    const handleDelete = (id) => {
+        setConfirmDelete(id);
+    };
+
+    const confirmDeleteAction = (confirmed) => {
+        if (confirmed) {
+            onDelete(confirmDelete);
+        }
+        setConfirmDelete(null);
+    };
+
     const elements = data.map((item) => {
         const { id, ...itemProps } = item;
         return (
             <EmployersListItem
                 key={id}
                 {...itemProps}
-                onDelete={() => onDelete(id)}
+                onDelete={() => handleDelete(id)}
                 onToggleProp={(e) =>
                     onToggleProp(
                         id,
@@ -21,9 +34,22 @@ const EmployersList = ({ data, onDelete, onToggleProp }) => {
     });
 
     return (
-        <table className="appList table">
-            <tbody>{elements}</tbody>
-        </table>
+        <div>
+            <table className="appList table">
+                <tbody>{elements}</tbody>
+            </table>
+            {confirmDelete !== null && (
+                <div className="confirm-delete">
+                    <p>Are you sure you want to delete the item?</p>
+                    <button onClick={() => confirmDeleteAction(true)}>
+                        Yes
+                    </button>
+                    <button onClick={() => confirmDeleteAction(false)}>
+                        No
+                    </button>
+                </div>
+            )}
+        </div>
     );
 };
 
