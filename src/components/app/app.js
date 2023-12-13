@@ -5,7 +5,7 @@ import SearchPanel from '../searchPanel/SearchPanel';
 import AppFilter from '../appFilter/AppFilter';
 import EmployersList from '../employersList/EmployersList';
 import EmployersAddForm from '../employersAddForm/EmployersAddForm';
-import './app.css';
+import './App.css';
 
 const App = () => {
     const saveData = (data) => {

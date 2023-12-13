@@ -1,5 +1,5 @@
 import React from 'react';
-import './employersListItem.css';
+import './EmployersListItem.css';
 
 const EmployersListItem = (props) => {
     const { name, salary, onDelete, onToggleProp, increase, rise } = props;
