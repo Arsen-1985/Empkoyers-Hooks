@@ -32,3 +32,35 @@
 .confirm-delete button {
     margin: 0 10px;
 }
+
+/*
+.employers-list-item-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    min-width: 100%;
+}
+
+.list-group-item-label {
+    text-align: left;
+    border: 1px solid black;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.list-group-item-salary,
+.list-group-item-actions {
+    text-align: left;
+    border: 1px solid black;
+}
+
+
+@media screen and (max-width: 600px) {
+    .list-group-item-label,
+    .list-group-item-salary,
+    .list-group-item-actions {
+        flex: 100%;
+        flex-direction: column; 
+}
+*/

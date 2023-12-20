@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Login from './Login';
 import App from './App';
+import { Route, Routes } from 'react-router-dom';
+import News from './News';
 
 const Home = () => {
     const [email, setEmail] = useState('');
@@ -14,10 +16,23 @@ const Home = () => {
     if (email === '' && password === '') {
         return <Login onLogin={handleLogin} />;
     } else if (email === 'ars@gmail.com' && password === '111111') {
-        return <App />;
+        return (
+            <Routes>
+                <Route path="/" element={<App />} />
+                <Route
+                    path="/home/*"
+                    element={
+                        <Routes>
+                            <Route index element={<App />} />
+                        </Routes>
+                    }
+                />
+                <Route path="/news" element={<News />} />
+            </Routes>
+        );
     } else {
         localStorage.removeItem('loginInfo');
-        return 'Error';
+        return <Home />;
     }
 };
 
