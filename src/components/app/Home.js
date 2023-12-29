@@ -3,6 +3,7 @@ import Login from './Login';
 import App from './App';
 import { Route, Routes } from 'react-router-dom';
 import News from './News';
+import PostDetails from './PostDetails';
 
 const Home = () => {
     const [email, setEmail] = useState('');
@@ -28,6 +29,7 @@ const Home = () => {
                     }
                 />
                 <Route path="/news" element={<News />} />
+                <Route path="/post/:id" element={<PostDetails />} />
             </Routes>
         );
     } else {
