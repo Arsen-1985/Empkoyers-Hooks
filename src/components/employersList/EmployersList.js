@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import EmployersListItem from '../employersListItem/EmployersListItem';
-import './EmployersList.css';
+import './employersList.css';
 
 const EmployersList = ({ data, onDelete, onToggleProp }) => {
     const [confirmDelete, setConfirmDelete] = useState(null);

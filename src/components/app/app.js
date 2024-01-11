@@ -6,7 +6,7 @@ import AppFilter from '../appFilter/AppFilter';
 import EmployersList from '../employersList/EmployersList';
 import EmployersAddForm from '../employersAddForm/EmployersAddForm';
 import ResponsiveAppBar from './ResponsiveAppBar';
-import './App.css';
+import './app.css';
 
 const App = () => {
     const saveData = (data) => {

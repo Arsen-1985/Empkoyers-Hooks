@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import './EmployersAddForm.css';
+import './employersAddForm.css';
 
 const EmployersAddForm = (props) => {
     const [name, setName] = useState('');
