@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const PostDetails = () => {
     const { id } = useParams();
@@ -25,7 +25,6 @@ const PostDetails = () => {
         <div>
             <h2>Full text of the post</h2>
             <p>{post}</p>
-            <Link to="/news">Return to news</Link>
         </div>
     );
 };

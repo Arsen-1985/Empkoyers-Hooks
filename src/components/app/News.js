@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import ResponsiveAppBar from './ResponsiveAppBar';
 import CommentDialog from './CommentDialog';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -108,7 +107,6 @@ const News = () => {
 
     return (
         <div style={{ height: 400, width: '100%' }}>
-            <ResponsiveAppBar />
             <DataGrid
                 rows={rows}
                 columns={columns.map((column) => ({

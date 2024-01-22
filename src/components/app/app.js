@@ -5,7 +5,6 @@ import SearchPanel from '../searchPanel/SearchPanel';
 import AppFilter from '../appFilter/AppFilter';
 import EmployersList from '../employersList/EmployersList';
 import EmployersAddForm from '../employersAddForm/EmployersAddForm';
-import ResponsiveAppBar from './ResponsiveAppBar';
 import './app.css';
 
 const App = () => {
@@ -121,7 +120,6 @@ const App = () => {
 
     return (
         <div className="app">
-            <ResponsiveAppBar />
             <AppInfo employers={employers} increased={increased} />
 
             <div className="searchPanel">

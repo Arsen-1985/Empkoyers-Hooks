@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './Login';
 import App from './App';
-import { Route, Routes } from 'react-router-dom';
 import News from './News';
-import PostDetails from './PostDetails';
+import ResponsiveAppBar from './ResponsiveAppBar';
 
 const Home = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,23 +15,22 @@ const Home = () => {
         setPassword(info.password);
     };
 
+    const handleNavigation = (page) => {
+        navigate(`/${page.toLowerCase()}`);
+    };
+
     if (email === '' && password === '') {
         return <Login onLogin={handleLogin} />;
     } else if (email === 'ars@gmail.com' && password === '111111') {
         return (
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route
-                    path="/home/*"
-                    element={
-                        <Routes>
-                            <Route index element={<App />} />
-                        </Routes>
-                    }
-                />
-                <Route path="/news" element={<News />} />
-                <Route path="/post/:id" element={<PostDetails />} />
-            </Routes>
+            <>
+                <ResponsiveAppBar onNavigate={handleNavigation} />
+                <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route path="/home" element={<App />} />
+                    <Route path="/news" element={<News />} />
+                </Routes>
+            </>
         );
     } else {
         localStorage.removeItem('loginInfo');
