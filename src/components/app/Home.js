@@ -4,11 +4,14 @@ import Login from './Login';
 import App from './App';
 import News from './News';
 import ResponsiveAppBar from './ResponsiveAppBar';
+import LeftBarButton from './LeftBarButton';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Home = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const isDesktop = useMediaQuery('(min-width:700px)');
 
     const handleLogin = (info) => {
         setEmail(info.email);
@@ -24,7 +27,12 @@ const Home = () => {
     } else if (email === 'ars@gmail.com' && password === '111111') {
         return (
             <>
-                <ResponsiveAppBar onNavigate={handleNavigation} />
+                {isDesktop ? (
+                    <ResponsiveAppBar onNavigate={handleNavigation} />
+                ) : (
+                    <LeftBarButton onNavigate={handleNavigation} />
+                )}
+
                 <Routes>
                     <Route path="/" element={<App />} />
                     <Route path="/home" element={<App />} />

@@ -5,7 +5,37 @@ import SearchPanel from '../searchPanel/SearchPanel';
 import AppFilter from '../appFilter/AppFilter';
 import EmployersList from '../employersList/EmployersList';
 import EmployersAddForm from '../employersAddForm/EmployersAddForm';
+import { useMediaQuery } from '@mui/material';
+
 import './app.css';
+
+const CommonContent = ({
+    employers,
+    increased,
+    onUpdateSearch,
+    filter,
+    onFilterSelect,
+    visibleData,
+    deleteItem,
+    onToggleProp,
+    addItem,
+}) => (
+    <>
+        <AppInfo employers={employers} increased={increased} />
+
+        <div className="searchPanel">
+            <SearchPanel onUpdateSearch={onUpdateSearch} />
+            <AppFilter filter={filter} onFilterSelect={onFilterSelect} />
+        </div>
+
+        <EmployersList
+            data={visibleData}
+            onDelete={deleteItem}
+            onToggleProp={onToggleProp}
+        />
+        <EmployersAddForm onAdd={addItem} />
+    </>
+);
 
 const App = () => {
     const saveData = (data) => {
@@ -118,23 +148,37 @@ const App = () => {
     const increased = data.filter((item) => item.increase).length;
     const visibleData = filterPost(searchEmp(data, term), filter);
 
+    const isDesktop = useMediaQuery('(min-width:500px)');
+
     return (
-        <div className="app">
-            <AppInfo employers={employers} increased={increased} />
-
-            <div className="searchPanel">
-                <SearchPanel onUpdateSearch={onUpdateSearch} />
-                <AppFilter filter={filter} onFilterSelect={onFilterSelect} />
-            </div>
-
-            <EmployersList
-                data={visibleData}
-                onDelete={deleteItem}
-                onToggleProp={onToggleProp}
-            />
-            <EmployersAddForm onAdd={addItem} />
+        <div className={isDesktop ? 'responsive-app' : 'button-app'}>
+            {isDesktop && (
+                <CommonContent
+                    employers={employers}
+                    increased={increased}
+                    onUpdateSearch={onUpdateSearch}
+                    filter={filter}
+                    onFilterSelect={onFilterSelect}
+                    visibleData={visibleData}
+                    deleteItem={deleteItem}
+                    onToggleProp={onToggleProp}
+                    addItem={addItem}
+                />
+            )}
+            {!isDesktop && (
+                <CommonContent
+                    employers={employers}
+                    increased={increased}
+                    onUpdateSearch={onUpdateSearch}
+                    filter={filter}
+                    onFilterSelect={onFilterSelect}
+                    visibleData={visibleData}
+                    deleteItem={deleteItem}
+                    onToggleProp={onToggleProp}
+                    addItem={addItem}
+                />
+            )}
         </div>
     );
 };
-
 export default App;
