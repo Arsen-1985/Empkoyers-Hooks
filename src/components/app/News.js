@@ -3,11 +3,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import CommentDialog from './CommentDialog';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'userId', headerName: 'userId ', width: 70 },
+    { field: 'userId', headerName: 'userId', width: 70 },
     { field: 'title', headerName: 'title', width: 210 },
     { field: 'body', headerName: 'body', width: 210 },
     {
@@ -22,7 +21,6 @@ const News = () => {
     const [rows, setRows] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
     const [openModal, setOpenModal] = useState(false);
-    const [modalContent, setModalContent] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,8 +76,15 @@ const News = () => {
             if (postData) {
                 const content =
                     params.field === 'title' ? postData.title : postData.body;
-                setModalContent(content);
-                setOpenModal(true);
+
+                const newTab = window.open('about:blank', '_blank');
+
+                if (newTab) {
+                    newTab.document.write(content);
+                    newTab.document.close();
+                } else {
+                    console.error('Failed to open a new tab.');
+                }
             }
         }
     };
@@ -126,7 +131,6 @@ const News = () => {
                 }))}
                 pageSizeOptions={[5, 10]}
                 checkboxSelection
-                onCellClick={handleCellClick}
                 initialState={{
                     pagination: {
                         paginationModel: { page: 0, pageSize: 5 },
@@ -140,7 +144,6 @@ const News = () => {
             />
             <Dialog open={openModal} onClose={handleCloseModal}>
                 <DialogTitle>{'Post Content'}</DialogTitle>
-                <DialogContent>{modalContent}</DialogContent>
             </Dialog>
         </div>
     );

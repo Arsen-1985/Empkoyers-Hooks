@@ -7,20 +7,20 @@ import Container from '@mui/material/Container';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const pages = ['Home', 'News'];
 
 function ResponsiveAppBar({ onNavigate }) {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+    const isMobile = useMediaQuery('(max-width:500px)');
 
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
+                <Toolbar
+                    disableGutters
+                    sx={{ flexDirection: isMobile ? 'column' : 'row' }}
+                >
                     <Box
                         sx={{
                             display: 'flex',
@@ -40,7 +40,6 @@ function ResponsiveAppBar({ onNavigate }) {
                         ))}
                         <Menu
                             id="menu-appbar"
-                            anchorEl={anchorElNav}
                             anchorOrigin={{
                                 vertical: 'bottom',
                                 horizontal: 'left',
@@ -50,8 +49,8 @@ function ResponsiveAppBar({ onNavigate }) {
                                 vertical: 'top',
                                 horizontal: 'left',
                             }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
+                            open={false}
+                            onClose={() => {}}
                             sx={{
                                 display: { xs: 'block', md: 'none' },
                             }}
@@ -59,10 +58,7 @@ function ResponsiveAppBar({ onNavigate }) {
                             {pages.map((page) => (
                                 <MenuItem
                                     key={page}
-                                    onClick={() => {
-                                        handleCloseNavMenu();
-                                        onNavigate(page);
-                                    }}
+                                    onClick={() => onNavigate(page)}
                                 >
                                     <Typography textAlign="center">
                                         {page}
