@@ -37,7 +37,7 @@ const EmployersAddForm = (props) => {
                     className="form-control new-post-label"
                     placeholder="Salary in $?"
                     name="salary"
-                    value={salary}
+                    value={salary} // gorc ka
                     onChange={onSalaryChange}
                 />
 

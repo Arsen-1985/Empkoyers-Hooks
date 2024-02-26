@@ -6,6 +6,7 @@ import News from './News';
 import ResponsiveAppBar from './ResponsiveAppBar';
 import LeftBarButton from './LeftBarButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import NewsId from './NewsId';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -37,6 +38,7 @@ const Home = () => {
                     <Route path="/" element={<App />} />
                     <Route path="/home" element={<App />} />
                     <Route path="/news" element={<News />} />
+                    <Route path="/news-id" element={<NewsId />} />
                 </Routes>
             </>
         );

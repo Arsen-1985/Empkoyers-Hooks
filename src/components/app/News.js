@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import CommentDialog from './CommentDialog';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -18,6 +19,7 @@ const columns = [
 ];
 
 const News = () => {
+    const navigate = useNavigate();
     const [rows, setRows] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
     const [openModal, setOpenModal] = useState(false);
@@ -67,25 +69,14 @@ const News = () => {
         if (params.field === 'comments') {
             const postId = params.id;
             setSelectedPost(postId);
-        } else if (params.field === 'title' || params.field === 'body') {
+        } else if (params.field === 'title') {
             const postId = params.id;
-            const post = await fetch(
-                `https://jsonplaceholder.typicode.com/posts/${postId}`,
-            );
-            const postData = await post.json();
-            if (postData) {
-                const content =
-                    params.field === 'title' ? postData.title : postData.body;
 
-                const newTab = window.open('about:blank', '_blank');
+            navigate(`/news-id?postId=${postId}&content=title`);
+        } else if (params.field === 'body') {
+            const postId = params.id;
 
-                if (newTab) {
-                    newTab.document.write(content);
-                    newTab.document.close();
-                } else {
-                    console.error('Failed to open a new tab.');
-                }
-            }
+            navigate(`/news-id?postId=${postId}&content=body`);
         }
     };
 
